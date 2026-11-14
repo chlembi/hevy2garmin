@@ -22,6 +22,10 @@ jobs:
           python-version: '3.12'
       - name: Install
         run: pip install ".[cloud]"
+      - name: Disable grace period
+        run: |
+          mkdir -p ~/.hevy2garmin
+          echo '{"sync": {"grace_period_minutes": 0}}' > ~/.hevy2garmin/config.json
       - name: Sync
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
